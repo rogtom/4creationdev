@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { ReactComponent as Logo } from '../assets/4cd-logo.svg';
 import { Link } from 'react-router-dom';
 import NavBar from './NavBar';
+import MobileNav from './MobileNav';
+import Logo from './Logo';
+import { headerLogoAnimition, mainMenuAnimition } from './Animate';
 
 const HeaderConteiner = styled.div`
 	width: 100%;
 	height: 80px;
 	background-color: rgba(0, 0, 0, 0.5);
 	display: flex;
-	/* justify-content: space-between; */
+
 	position: fixed;
 	z-index: 100;
 `;
@@ -24,20 +26,34 @@ const HeaderWrapper = styled.div`
 	align-items: center;
 `;
 const HeaderLink = styled(Link)``;
-
-const HeaderLogo = styled(Logo)`
-	width: 100px;
-`;
+const NavWrapper = styled.div``;
 
 const Header = () => {
+	let headerLogo = useRef(null);
+	let mainMenu = useRef(null);
+	let header = useRef(null);
+
+	const [isOpen, setIsOpen] = useState(false);
+
+	useEffect(() => {
+		headerLogoAnimition(headerLogo);
+		mainMenuAnimition(mainMenu);
+	}, []);
+
+	const toggleMavMenu = () => {
+		setIsOpen(!isOpen);
+	};
 	return (
-		<HeaderConteiner>
+		<HeaderConteiner ref={(el) => (header = el)}>
 			<HeaderWrapper>
-				<HeaderLink to='/'>
-					<HeaderLogo />
+				<HeaderLink to='/' ref={(el) => (headerLogo = el)}>
+					<Logo />
 				</HeaderLink>
-				<NavBar />
+				<NavWrapper ref={(el) => (mainMenu = el)}>
+					<NavBar isOpen={isOpen} toggleMenu={toggleMavMenu} />
+				</NavWrapper>
 			</HeaderWrapper>
+			<MobileNav isOpen={isOpen} toggleMenu={toggleMavMenu} />
 		</HeaderConteiner>
 	);
 };

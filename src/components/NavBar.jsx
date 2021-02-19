@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { FaBars } from 'react-icons/fa';
+import { mainMenuAnimition } from './Animate';
 
 const NavBarContainer = styled.nav`
 	height: 100%;
@@ -15,6 +16,7 @@ const NavBarIcon = styled(FaBars)`
 
 	@media screen and (max-width: 768px) {
 		display: block;
+		font-size: 1.5rem;
 	}
 `;
 const NavBarMenu = styled.ul`
@@ -45,10 +47,12 @@ const NavBarLink = styled(NavLink)`
 	}
 `;
 
-const NavBar = () => {
+const NavBar = ({ toggleMenu, isOpen }) => {
+	let mainMenu = useRef(null);
+
 	return (
-		<NavBarContainer>
-			<NavBarIcon />
+		<NavBarContainer ref={(el) => (mainMenu = el)}>
+			<NavBarIcon onClick={toggleMenu} />
 			<NavBarMenu>
 				<NavBarItem>
 					<NavBarLink to='/'>Home</NavBarLink>
