@@ -14,6 +14,7 @@ position: relative;
 @media screen and (max-width: 768px) {
 	flex-direction: column-reverse;
 	height: 100%;
+	max-height:1000px
 
 }
 `
@@ -35,7 +36,7 @@ background-repeat: no-repeat;
 	background: linear-gradient(to bottom, rgb(0,0,0,0.9) 0%,rgb(0,0,0,0.3) 15%, rgb(0,0,0,0.2) 50%, rgb(0,0,0,0.2) 100%), url(${BgMobile});
 	background-size: cover;
 	background-repeat: no-repeat;
-	background-position: center center;
+	background-position: 1%
 }
 `
 const HeroContentWrapper = styled.div`
@@ -47,6 +48,11 @@ justify-content: center;
 align-items: center;
 position: absolute;
 left: 10%;
+
+@media (max-width:910px) {
+	left:70%;
+
+}
 
 @media screen and (max-width: 768px) {
 	min-height:400px;
